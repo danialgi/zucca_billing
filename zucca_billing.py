@@ -30,8 +30,8 @@ df_cart1_count = df_cart1_count.iloc[0]
 #df_cart1_count
 #st.write(df_cart1['Total'].sum())
 df_cart1_total = pd.DataFrame({
-    "Orders": [df_cart1['Total'].sum()],
-    "Total": [df_cart1_count]})
+    "Orders": [df_cart1_count],
+    "Total": [df_cart1['Total'].sum()]})
 #df_cart1_total
 
 
@@ -52,8 +52,8 @@ df_cart2_count = df_cart2_count.iloc[0]
 #df_cart2_count
 #st.write(df_cart2['Total'].sum())
 df_cart2_total = pd.DataFrame({
-    "Orders": [df_cart2['Total'].sum()],
-    "Total": [df_cart2_count]})
+    "Orders": [df_cart2_count],
+    "Total": [df_cart2['Total'].sum()]})
 #df_cart2_total
 
 df_concat=pd.concat([df_cart1_total, df_cart2_total], axis=0)
