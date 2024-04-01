@@ -22,6 +22,7 @@ df_cart1 = df_cart1[1:]
 df_cart1 = df_cart1.dropna(subset=['Order ID'])
 df_cart1.reset_index(inplace=True)
 df_cart1 = df_cart1.drop('index', axis=1)
+st.write("UPLOAD SUCCESS")
 #df_cart1
 
 df_cart1_count=df_cart1.count()
@@ -34,7 +35,7 @@ df_cart1_total = pd.DataFrame({
     "Total": [df_cart1['Total'].sum()]})
 #df_cart1_total
 
-
+st.markdown("#")
 st.header("File Upload (16th-31st)")
 cart_file2 = st.file_uploader("zucca file 2",type=['xlsx'])
 df_cart2 = pd.read_excel(cart_file2)
@@ -44,6 +45,7 @@ df_cart2 = df_cart2[1:]
 df_cart2 = df_cart2.dropna(subset=['Order ID'])
 df_cart2.reset_index(inplace=True)
 df_cart2 = df_cart2.drop('index', axis=1)
+st.write("UPLOAD SUCCESS")
 #df_cart2
 
 df_cart2_count=df_cart2.count()
@@ -59,6 +61,7 @@ df_cart2_total = pd.DataFrame({
 df_concat=pd.concat([df_cart1_total, df_cart2_total], axis=0)
 #df_concat
 
+st.write("______________________________________________________________________________________")
 #st.write(df_concat['Orders'].sum())
 #st.write(df_concat['Total'].sum())
 df_total = pd.DataFrame({
