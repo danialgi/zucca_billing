@@ -3,3 +3,4 @@ plotly
 openpyxl
 lxml
 xlsxwriter
+natsort
