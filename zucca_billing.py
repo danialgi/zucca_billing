@@ -7,6 +7,11 @@ import os
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import numpy as np
+from natsort import natsort_keygen
+from io import BytesIO
+from datetime import datetime
+
+today_date = datetime.now().strftime('%Y-%m-%d')
 
 st.set_page_config(page_title="Zucca Billing", page_icon="🚚", layout="wide")
 
@@ -72,18 +77,25 @@ df_final=pd.concat([df_concat, df_total], axis=0)
 df_final.reset_index(drop=True,inplace=True)
 df_final
 
-@st.cache_data
-def convert_df(df):
-    # IMPORTANT: Cache the conversion to prevent computation on every rerun
-    return df.to_csv().encode('utf-8')
+# Function to write DataFrames to an Excel file in memory
+def dfs_to_excel(df_list, sheet_list):
+    output = BytesIO()
+    with pd.ExcelWriter(output, engine='xlsxwriter') as writer:
+        for dataframe, sheet in zip(df_list, sheet_list):
+            dataframe.to_excel(writer, sheet_name=sheet, index=False)
+    output.seek(0)
+    return output
 
-csv = convert_df(df_final)
+df_list = [df_final]
+sheet_list = ['Sheet1']
 
+# Convert DataFrames to Excel in memory
+excel_file = dfs_to_excel(df_list, sheet_list)
+
+# Streamlit download button
 st.download_button(
-    label="Download",
-    data=csv,
-    file_name='ZUCCA Billing.csv',
-    mime='text/csv',
+    label="Download Excel file",
+    data=excel_file,
+    file_name=f"Zucca_Billing_{today_date}.xlsx",
+    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
 )
-
-#st.date_input("Date: ",value="default_value_today")
